@@ -1,0 +1,6 @@
+NAME : "Carlos Barbosa"
+EMAIL : "carlos@mail.com"
+PASSWORD : "123"
+UNIVERSITY : "Universidade do Minho"
+COURSE : "Mestrado Integrado em Engenharia Informática"
+YEAR : 4

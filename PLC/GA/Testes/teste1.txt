@@ -1,0 +1,5 @@
+NAME : "Pedro"
+EMAIL : "pedro@gmail.com"
+PASSWORD : "123"
+UNIVERSITY : "Universidade do Minho"
+YEAR : 4

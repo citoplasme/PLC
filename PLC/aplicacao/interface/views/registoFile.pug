@@ -1,0 +1,33 @@
+doctype html
+html
+  head
+    title UMinho ISN
+    meta(charset="UTF-8")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/style_back.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Raleway')
+    style.
+      body {
+        background-color: #fefefe;
+        background-image: url('images/fundo_inicial.png');
+        background-size: cover;
+        font-family: 'Raleway', sans-serif;;
+        height: 100%;
+        margin: 0;
+      }
+  body
+    .w3-display-middle
+        .w3-container.w3-charcoal(style="box-shadow: 10px 10px 18px #373737;")
+            .w3-margin.w3-padding-large.w3-center
+                img(src="/images/uminhoisn.png", style={height:'90px'}).w3-center
+                form.w3-container(method='POST' action='/regList' enctype="multipart/form-data")
+                    .w3-center
+                        input.w3-input.w3-section(required type='file' name='ficheiro')
+                    .w3-center
+                        b
+                            input.w3-btn.w3-pale-gold.w3-section(style="width : 64%" type='submit' value='REGISTAR')
+                .w3-container
+                    .w3-center
+                        form(method="get" action=`/menu`)
+                            button.w3-btn.w3-pale-gold.w3-section(style="width : 64%" type="submit")
+                                b BACK

@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    hr
+    .w3-container.w3-charcoal
+        div.w3-margin
+                h4= item.titulo
+                h5(style="color:#c0b283;")= item.user_id
+        .w3-container
+            div.w3-padding
+                i(class="fa fa-calendar" style="color:#c0b283") &nbsp;&nbsp;
+                span= item.data
+                span &nbsp;&nbsp;&nbsp;&nbsp;
+                if item.tags
+                    i(class="fa fa-hashtag" style="color:#c0b283") &nbsp;
+                    i
+                        span= item.tags        
+            div.w3-padding
+                span= item.descricao
+
+    
+    button(class="accordion") NOVO COMENTÁRIO &nbsp;&nbsp;
+        i(class="fa fa-newspaper-o" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            form.w3-container.w3-margin-top(method='POST' action='/publicacoes/' + item._id)
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-comment-alt" style="color:#c0b283").w3-xxlarge.w3-left
+                    .w3-col(style="width:91%")
+                        textarea.w3-input.w3-border(required rows='5' type='text' name='descricao' placeholder='Corpo')
+                .w3-center.w3-padding.w3-margin-bottom
+                    input.w3-btn.w3-pale-gold.w3-padding(type='submit' value='COMENTAR')
+    
+    script(src='/javascripts/collapsible.js')
+
+    .w3-container.w3-margin
+        each com in item.comentarios
+            div.w3-card-4.w3-margin.w3-charcoal
+                div.w3-container
+                    h6(style="color:#c0b283")= com.user_id 
+                        span &nbsp;&nbsp;&nbsp;&nbsp;
+                        span.w3-opacity(style="color:#FFFFFF")= com.data
+                div.w3-container
+                    p= com.descricao
+        hr

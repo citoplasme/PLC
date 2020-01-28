@@ -1,0 +1,86 @@
+extends layout
+
+block content
+    
+    script(src='/javascripts/ficheiros.js')
+    script(src='/javascripts/file_search.js')
+    
+    button(class="accordion") NOVO FICHEIRO &nbsp;&nbsp;
+        i(class="fa fa-newspaper-o" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            form.w3-container.w3-margin-top(method='POST' action='/ficheiros' enctype="multipart/form-data")
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-file-text" style="color:#c0b283").w3-xxlarge.w3-left
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(required type='file' name='ficheiro')
+                    .w3-rest.w3-right
+                        span(style="color:red;") *
+                
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-book-open" style="color:#c0b283").w3-xxlarge.w3-left
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(required type='text' name='uc' placeholder='Unidade Curricular')
+                    .w3-rest.w3-right
+                        span(style="color:red;") *
+                
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-pen" style="color:#c0b283").w3-xxlarge.w3-left
+                    .w3-col(style="width:91%")
+                        select.w3-select.w3-border(name="tipo")
+                            option(value="Teste") Teste
+                            option(value="Ficha") Ficha
+                            option(value="Teoria") Teoria
+                            option(value="Outro") Outro
+                        
+                .w3-container
+                    div(class="field_wrapper")
+                        a(href="javascript:void(0);" class="add_button" title="Add field")
+                            span 
+                                i(class="fa fa-plus-square" style="color:#373737").w3-large.w3-left 
+            
+                p(style="color:red;") * Campos de preenchimento obrigatório
+                .w3-center.w3-padding.w3-margin-bottom
+                    input.w3-btn.w3-pale-gold.w3-padding(type='submit' value='ADICIONAR')
+
+    button(class="accordion") PESQUISAR &nbsp;&nbsp;
+        i(class="fa fa-search" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            .w3-row.w3-section
+                .w3-col(style="width:20%").w3-left
+                    button.w3-button.w3-pale-gold(id='ucButton' style="width:95%") Pesquisar: &nbsp;
+                .w3-rest
+                    input.w3-input.w3-border(id='ucPesq' placeholder='Unidade Curricular')
+            
+    script(src='/javascripts/collapsible.js')
+    
+    w3-card-4(style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+        if lista.length > 0
+            ul(class="w3-ul w3-card-4 w3-margin")
+                each item in lista
+                    li(class="w3-bar" id='item')
+                        div(class="w3-bar-item")
+                            i(class="fa fa-file-text" style="color:#c0b283") &nbsp;&nbsp;
+                            a(href="ficheiros/"+item._id style="margin-left:0%;text-decoration: underline;")
+                                span(style="font-size:1em;color:#373737")= item.name 
+                        if(item.uc)
+                            div(class="w3-bar-item")
+                                i(class="fa fa-book-open" style="color:#c0b283") &nbsp;&nbsp;
+                                a(href="ficheiros?uc="+item.uc style="margin-left:0%;text-decoration: underline;")
+                                    span(style="font-size:1em;color:#373737")= item.uc 
+                        if(item.tipo)
+                            div(class="w3-bar-item")
+                                i(class="fa fa-pen" style="color:#c0b283") &nbsp;&nbsp;
+                                a(href="ficheiros?tipo="+item.tipo + "&uc=" + item.uc style="margin-left:0%;text-decoration: underline;")
+                                    span(style="font-size:1em;color:#373737")= item.tipo 
+        else 
+            .w3-display-middle(style="width:50%;")
+                .w3-card-4(style="width:100%; margin: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                    header.w3-charcoal.w3-padding-small(style="width:100%;")
+                        div(style="margin-left:5%;")
+                            h4 Não existem ficheiros.
+                    

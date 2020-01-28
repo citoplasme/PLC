@@ -1,0 +1,88 @@
+extends layout
+
+block content
+    style.
+        body {
+            background-color: #fefefe;
+            background-image: url('images/fundo_inicial.png');
+            background-size: cover;
+            height: 100%;
+            margin: 0;
+        }
+
+    .w3-display-middle(style="width:50%;")
+        .w3-card-4(style="width:100%; margin: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+            header.w3-charcoal.w3-padding-small(style="width:100%;")
+                if item.img_path
+                    div.w3-margin-top.w3-center
+                        img(src=item.img_path style="width:30%;border-radius: 50%;")
+                div(style="margin-left:5%;")
+                    h4= item.nome
+            .w3-container.w3-white
+                div.w3-padding
+                    i(class="fas fa-mail-bulk" style="color:#c0b283") &nbsp;&nbsp;
+                    span= item.email
+                div.w3-padding
+                    i(class="fas fa-user-lock" style="color:#c0b283") &nbsp;&nbsp;
+                    span *******
+                if item.universidade 
+                    div.w3-padding
+                        i(class="fas fa-university" style="color:#c0b283") &nbsp;&nbsp;
+                        span= item.universidade
+                if item.curso 
+                    div.w3-padding
+                        i(class="fas fa-graduation-cap" style="color:#c0b283") &nbsp;&nbsp;
+                        span= item.curso
+                if item.ano 
+                    div.w3-padding
+                        i(class="fas fa-calendar" style="color:#c0b283") &nbsp;&nbsp;
+                        span= item.ano
+    .w3-center(style="position: relative; margin-top:37%;")
+        button(onclick="document.getElementById('"+item._id+"').style.display='block'").w3-btn.w3-pale-gold.w3-margin EDITAR&nbsp;&nbsp;
+            i(class="fas fa-user-edit" style="color:#373737")
+        div(id=""+item._id+"" class="modal").w3-center
+            .modal-content
+                .w3-container.w3-charcoal
+                    span(onclick="document.getElementById('"+item._id+"').style.display='none'" class="close").w3-padding-small.w3-margin-top-5 &times;
+                    .w3-center
+                        h4.w3-padding EDITAR PERFIL
+                .w3-container
+                    form.w3-container.w3-margin-top(method='POST' action='/user')
+                        input(type="hidden" name="_id" value=item._id)
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fas fa-user-circle" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='nome' value=item.nome placeholder='Nome')
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fas fa-mail-bulk" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='email' value=item.email placeholder='Email' disabled)
+                        //-.w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fas fa-user-lock" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='password' name='password' placeholder='Nova Palavra-Passe')
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fas fa-university" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='universidade' value=item.universidade placeholder='Universidade')
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fa fa-graduation-cap" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='curso' value=item.curso placeholder='Curso')
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="far fa-calendar" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='ano' value=item.ano placeholder='Ano')
+                        .w3-row.w3-section
+                            .w3-col(style="width:11%")
+                                i(class="fa fa-image" style="color:#c0b283").w3-xxlarge.w3-left
+                            .w3-rest
+                                input.w3-input.w3-border(type='text' name='img_path' value=item.img_path placeholder='Link para imagem')
+                        .w3-center.w3-padding.w3-margin-bottom
+                            input.w3-btn.w3-pale-gold.w3-padding(type='submit' value='EDITAR')

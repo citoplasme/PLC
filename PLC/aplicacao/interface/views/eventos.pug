@@ -1,0 +1,115 @@
+extends layout
+
+block content
+    //- Calendarpicker
+    link(rel="stylesheet", href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css")
+    link(rel="stylesheet", href="stylesheets/datepicker.css")
+    script(src="http://code.jquery.com/jquery-1.8.2.js")
+    script(src="http://code.jquery.com/ui/1.9.0/jquery-ui.js")
+    script(src='/javascripts/datepicker.js')
+
+    button(class="accordion") NOVO EVENTO &nbsp;&nbsp;
+        i(class="fas fa-calendar-plus" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            form.w3-container.w3-margin-top(method='POST' action='/eventos')
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fa fa-quote-right" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(required type='text' name='designacao' placeholder='Designação')
+                    .w3-rest.w3-right
+                        p(style="color:red;") *
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fa fa-calendar" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(required type='text' name='data' placeholder='Data: AAAA-MM-DD' id="calendario") 
+                    .w3-rest.w3-right
+                        p(style="color:red;") *
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-map-marked-alt" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(required type='text' name='local' placeholder='Local') 
+                    .w3-rest.w3-right
+                        p(style="color:red;") *
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-comment-alt" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:91%")
+                        span
+                            input(class="w3-radio" type="radio" name="tipo" value="Teste" checked)
+                            label.w3-margin-right Teste
+                            input(class="w3-radio" type="radio" name="tipo" value="Formacao") 
+                            label Formação 
+                    .w3-rest.w3-right
+                        p(style="color:red;") *
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fas fa-hourglass-half" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:45.5%; padding-right: 2%;")
+                        input.w3-input.w3-border(type='text' name='hinicio' placeholder='Hora de Início')
+                    .w3-col(style="width:45.5%")
+                        input.w3-input.w3-border(type='text' name='hfim' placeholder='Hora de Fim')
+                .w3-row.w3-section
+                    .w3-col(style="width:6%")
+                        i(class="fa fa-info-circle" style="color:#c0b283").w3-xxlarge.w3-center
+                    .w3-col(style="width:91%")
+                        input.w3-input.w3-border(type='text' name='informacoes' placeholder='Informações')
+                p(style="color:red;") * Campos de preenchimento obrigatório
+                .w3-center.w3-padding.w3-margin-bottom
+                    input.w3-btn.w3-pale-gold.w3-padding(type='submit' value='ADICIONAR')
+
+    script(src='/javascripts/eventos_search.js')
+
+    button(class="accordion") PESQUISAR &nbsp;&nbsp;
+        i(class="fa fa-search" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            .w3-row.w3-section
+                .w3-col(style="width:20%").w3-left
+                    button.w3-button.w3-pale-gold(id='tipoButton' style="width:95%") Pesquisar: &nbsp;
+                .w3-rest
+                    input.w3-input.w3-border(id='tipoPesq' placeholder='Tipo')
+ 
+    script(src='/javascripts/collapsible.js')
+    
+    if eventos.length > 0
+        ul(class="list") 
+            each e in eventos 
+                li(class="list-item").w3-card-4.w3-center
+                    div(class="list-content")
+                        .w3-container.w3-charcoal
+                            div.w3-margin
+                                h3
+                                    a(href='?tipo='+e.tipo  style="color:#FEFEFE;")= e.tipo
+                                h4(style="color:#c0b283")= e.designacao
+                        .w3-container
+                            div.w3-padding
+                                i(class="fa fa-calendar" style="color:#c0b283") &nbsp;&nbsp;
+                                span= e.data
+                            div.w3-padding
+                                i(class="fas fa-map-marked-alt" style="color:#c0b283") &nbsp;&nbsp;
+                                span= e.local
+                            if e.hinicio
+                                div.w3-padding
+                                    i(class="fas fa-hourglass-half" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= "Ínicio: " + e.hinicio 
+                                    if e.hfim
+                                        span &nbsp; &nbsp;
+                                        span= "Fim: " + e.hfim
+                            else if e.hfim
+                                div.w3-padding
+                                    i(class="fas fa-hourglass-half" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= "Fim: " + e.hfim 
+                            if e.informacoes
+                                div.w3-padding
+                                    i(class="fa fa-info-circle" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= e.informacoes
+    else 
+        .w3-display-middle(style="width:50%;")
+                .w3-card-4(style="width:100%; margin: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                    header.w3-charcoal.w3-padding-small(style="width:100%;")
+                        div(style="margin-left:5%;")
+                            h4 Não existem eventos. 

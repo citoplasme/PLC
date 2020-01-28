@@ -1,0 +1,79 @@
+doctype html
+html
+  head
+    title UMinho ISN
+    meta(charset="UTF-8")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/layout_admin.css')
+    link(rel='stylesheet', href='https://fonts.googleapis.com/css?family=Lato')
+    link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css')
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.5.0/css/all.css')
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.6.3/css/all.css' integrity='sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/' crossorigin='anonymous')
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js")
+    script(src='/javascripts/jquery-3.4.1.min.js')
+    
+    nav.w3-charcoal
+        button.w3-btn.w3-large.w3-right.w3-charcoal.w3-section(style="position: absolute; left: 70px; top: 4px;" )
+            a(href='/menu')
+                i(class="fa fa-backward" style="color:#c0b283")
+        a(href="/menu")
+            .w3-padding-large
+                img(src="/images/uminhoisn.png", style={height:'60px'}) 
+        button.w3-btn.w3-large.w3-right.w3-charcoal.w3-section(style="position: absolute; right: 70px; top: 4px;" )
+            a(href='/publico')
+                i(class="fa fa-undo" style="color:#c0b283")
+    body
+    
+    script(src='/javascripts/search_publica.js')
+
+    button(class="accordion") PESQUISAR &nbsp;&nbsp;
+        i(class="fa fa-search" style="color:#fefefe")
+    div(class="panel")
+        .w3-container
+            .w3-row.w3-section
+                .w3-col(style="width:20%").w3-left
+                    button.w3-button.w3-pale-gold(id='tipoButton' style="width:95%") Pesquisar: &nbsp;
+                .w3-rest
+                    input.w3-input.w3-border(id='tipoPesq' placeholder='Tipo')
+ 
+    script(src='/javascripts/collapsible.js')
+    
+    if eventos.length > 0
+        ul(class="list") 
+            each e in eventos 
+                li(class="list-item").w3-card-4.w3-center
+                    div(class="list-content")
+                        .w3-container.w3-charcoal
+                            div.w3-margin
+                                h3
+                                    a(href='?tipo='+e.tipo  style="color:#FEFEFE;")= e.tipo
+                                h4(style="color:#c0b283")= e.designacao
+                        .w3-container
+                            div.w3-padding
+                                i(class="fa fa-calendar" style="color:#c0b283") &nbsp;&nbsp;
+                                span= e.data
+                            div.w3-padding
+                                i(class="fas fa-map-marked-alt" style="color:#c0b283") &nbsp;&nbsp;
+                                span= e.local
+                            if e.hinicio
+                                div.w3-padding
+                                    i(class="fas fa-hourglass-half" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= "Ínicio: " + e.hinicio 
+                                    if e.hfim
+                                        span &nbsp; &nbsp;
+                                        span= "Fim: " + e.hfim
+                            else if e.hfim
+                                div.w3-padding
+                                    i(class="fas fa-hourglass-half" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= "Fim: " + e.hfim 
+                            if e.informacoes
+                                div.w3-padding
+                                    i(class="fa fa-info-circle" style="color:#c0b283") &nbsp;&nbsp;
+                                    span= e.informacoes
+    else 
+        .w3-display-middle(style="width:50%;")
+                .w3-card-4(style="width:100%; margin: 1%;box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);")
+                    header.w3-charcoal.w3-padding-small(style="width:100%;")
+                        div(style="margin-left:5%;")
+                            h4 Não existem eventos. 
